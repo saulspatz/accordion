@@ -167,7 +167,7 @@ class View:
             canvas.coords(tag, x+1, y)
             canvas.tag_raise(tag)
         move1, move3, move13 = model.playable()
-        canvas.itemconfigure('pile', fill=BACKGROUND)
+        canvas.itemconfigure('pile', outline=BACKGROUND)
         for idx in move1:
             canvas.itemconfigure('rect%d'%idx, outline=MOVE1)
         for idx in move3:
@@ -183,6 +183,8 @@ class View:
             self.showMessage('winText')
         elif model.gameOver():
             self.showMessage('gameOver')
+        else:
+            self.hideMessages()
         if model.canUndo():
             self.enableUndo()
         else:
@@ -223,7 +225,7 @@ class View:
         tag = [t for t in canvas.gettags('current') if t.startswith('code')][0]
         code = int(tag[4:])             # code of the card clicked
         pile = model.grab(code)
-        if pile:
+        if pile is not None:
             self.grab('code%d'%code, pile, event.x, event.y)  
 
     def onDrop(self, event):
