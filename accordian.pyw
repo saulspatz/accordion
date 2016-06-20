@@ -32,7 +32,7 @@ class Accordian:
     def __init__(self):
         deck = os.path.join(os.path.dirname(sys.argv[0]), 'cards')
         self.model = Model()
-        self.view = View(self, deck, width=1145, height=800)
+        self.view = View(self, deck, width=1145, height=650)
         self.makeHelp()
         self.view.start()      #  start the event loop
 
