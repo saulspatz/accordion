@@ -23,6 +23,9 @@ the top card of the pile you place it on.  For example, a pile with 5 of Hearts
 on top can be moved on top of a pile whose top card is any Heart or any 5,
 provided that pile is either one or three piles to the left of the 5 of Hearts pile.
 
+Cards that can be moved have a yellow "halo" around them.  The halo is heavier
+for cards that have two possible moves than for those with only one move.
+
 The game ends when no more moves are possible.  If there is only one pile left,
 you win.
 
@@ -32,7 +35,7 @@ class Accordian:
     def __init__(self):
         deck = os.path.join(os.path.dirname(sys.argv[0]), 'cards')
         self.model = Model()
-        self.view = View(self, deck, width=1145, height=650)
+        self.view = View(self, deck, width=1195, height=650)
         self.makeHelp()
         self.view.start()      #  start the event loop
 

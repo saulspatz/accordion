@@ -20,10 +20,11 @@ BACKGROUND = '#070'
 OUTLINE = 'orange'        # outline color of piles
 CELEBRATE = 'yellow'     # Color of "you won" message
 BUTTON = 'Forest Green'
-
-MOVE1 = 'white'             # indicator colors for playable cards
-MOVE3 = 'white'
+     
+MOVE1 = 'yellow'             # indicator colors for playable cards
+MOVE3 = 'yellow'
 MOVE13 ='yellow'
+HALO = 3                        # width of the idicator halo
 
 # Cursors
 DEFAULT_CURSOR = 'arrow'
@@ -107,7 +108,7 @@ class View:
         canvas.create_text(width//2, height//2, text = "YOU WIN",
                            fill = BACKGROUND, font=("Helvetica", "64", "bold"), 
                            tag = 'winText', anchor=tk.CENTER)      
-        canvas.create_text(width//2 , height//4,
+        canvas.create_text(width//2 , height//2,
                            text = 'No More Moves.  Game Over.',
                            fill = BACKGROUND, font = ('Helvetica', '32', 'bold'),
                            tag = 'gameOver', anchor = tk.CENTER)        
@@ -146,13 +147,15 @@ class View:
         for row in range(0,52,13):
             x = MARGIN
             for column in range(13):
-                c = canvas.create_rectangle(x,y,x+CARDWIDTH+2,y+CARDHEIGHT+2,
-                                    outline=BACKGROUND, tag='pile')
+                c = canvas.create_rectangle(x,y,
+                                            x+CARDWIDTH+2*HALO,
+                                            y+CARDHEIGHT+2*HALO,
+                                            outline=BACKGROUND, tag='pile')
                 canvas.addtag_withtag('rect%d'%idx, c)
                 coords.append((x+1,y+1))
-                x += CARDWIDTH+2+MARGIN
+                x += CARDWIDTH+2*HALO+MARGIN
                 idx += 1
-            y += CARDHEIGHT+2+MARGIN
+            y += CARDHEIGHT+2*HALO+MARGIN
             
     def showPiles(self):
         canvas = self.canvas
@@ -164,16 +167,16 @@ class View:
         for idx, card in enumerate(model.piles):
             tag = 'code%d'%card.code
             x, y = coords[idx]
-            canvas.coords(tag, x+1, y)
+            canvas.coords(tag, x+HALO-1, y+HALO-1)
             canvas.tag_raise(tag)
         move1, move3, move13 = model.playable()
-        canvas.itemconfigure('pile', outline=BACKGROUND)
+        canvas.itemconfigure('pile', fill=BACKGROUND, outline=BACKGROUND)
         for idx in move1:
-            canvas.itemconfigure('rect%d'%idx, outline=MOVE1)
+            canvas.itemconfigure('rect%d'%idx, fill=BACKGROUND, outline=MOVE1)
         for idx in move3:
-            canvas.itemconfigure('rect%d'%idx, outline=MOVE3)
+            canvas.itemconfigure('rect%d'%idx, fill=BACKGROUND, outline=MOVE1)
         for idx in move13:
-            canvas.itemconfigure('rect%d'%idx, outline=MOVE13)        
+            canvas.itemconfigure('rect%d'%idx, fill=MOVE13)        
                     
     def show(self):
         model = self.model
