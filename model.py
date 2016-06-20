@@ -65,15 +65,26 @@ class Model:
     def grab(self, code):
         '''
         Initiate a move.  Find the pile containing the card.
-        Return pile index on success or None on failure.
+        Return pile index if card is playable, else return None.
         '''
         codes = [card.code for card in self.piles]
         pile = codes.index(code)
         if pile == -1:
             return None
-        self.selection = pile
-        return pile
-
+        if self.isPlayable(pile):
+            self.selection = pile
+            return pile
+        else:
+            return None
+        
+    def isPlayable(self, pile):
+        piles = self.piles
+        card = piles[pile]
+        for offset in (1,3):
+            if pile >= offset and card.matches(piles[pile-offset]):
+                return True
+        return False        
+        
     def abortMove(self):
         self.selection = None
 
