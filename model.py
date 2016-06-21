@@ -1,4 +1,4 @@
-# model.py Model for Accordian solitaire
+# model.py Model for Accordion solitaire
 
 import random, itertools
 

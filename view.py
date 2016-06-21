@@ -1,6 +1,6 @@
 # view.py
 '''
-The visual interface for open Accordian solitaire.
+The visual interface for open Accordion solitaire.
 The view knows about the model, but not vice versa
 The canvas widget is used for both view and controller.
 '''
@@ -45,7 +45,7 @@ class View:
     def __init__(self, parent, deck, **kwargs):
         # kwargs passed to Canvas
         # deck is directory with card images
-        self.parent = parent          # parent is the Accordian application
+        self.parent = parent          # parent is the Accordion application
         self.model =  parent.model
         self.root = root = tk.Tk()
         self.deck = tk.StringVar(value=deck)
@@ -53,7 +53,7 @@ class View:
         width = kwargs['width']
         height = kwargs['height']
         self.root.wm_geometry('%dx%d-10+10'%(width,height))
-        root.title("Open Accordian Solitaire")         
+        root.title("Open Accordion Solitaire")         
         
         status = tk.Frame(root, bg = STATUS_BG)
         self.moves =    tk.Label(status, relief = tk.RIDGE, font = STATUS_FONT, 

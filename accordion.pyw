@@ -1,4 +1,4 @@
-# accordian.pyw
+# accordion.pyw
 
 from model import Model
 from view import View
@@ -9,8 +9,8 @@ helpText = '''
 OBJECTIVE
 
 The objective is to place all cards in the 52-card deck in a single pile.
-The game is played like standard accordian solitaire, but all the cards
-are dealt up at the beginning of the game, whereas in accordian 
+The game is played like standard accordion solitaire, but all the cards
+are dealt up at the beginning of the game, whereas in accordion 
 solitaire they're dealt one at a time.  Here you "know the future."
 
 SETUP
@@ -31,7 +31,7 @@ you win.
 
 '''
 
-class Accordian:
+class Accordion:
     def __init__(self):
         deck = os.path.join(os.path.dirname(sys.argv[0]), 'cards')
         self.model = Model()
@@ -45,7 +45,7 @@ class Accordian:
         top.protocol("WM_DELETE_WINDOW", top.withdraw)
         top.withdraw()
         top.resizable(False, True)
-        top.title("Accordian")
+        top.title("Accordion Solitaire Help")
         f = tk.Frame(top)
         self.helpText.text = text = tk.Text(f, height=30, width=80, wrap=tk.WORD)
         text['font'] = ('helevetica', 14, 'normal')
@@ -66,4 +66,4 @@ class Accordian:
         self.helpText.text.see('1.0')  
         
 if __name__ == "__main__":
-    Accordian()
+    Accordion()
