@@ -31,6 +31,7 @@ DEFAULT_CURSOR = 'arrow'
 SELECT_CURSOR = 'hand2'
 
 STATUS_FONT = ('Helvetica', '14', 'normal')
+STATUS_BG = 'gray'
 
 imageDict = {}   # hang on to images, or they may disappear!
 
@@ -52,10 +53,17 @@ class View:
         width = kwargs['width']
         height = kwargs['height']
         self.root.wm_geometry('%dx%d-10+10'%(width,height))
-        root.title("Open Accordian Solitaire")                       
+        root.title("Open Accordian Solitaire")         
+        
+        status = tk.Frame(root, bg = STATUS_BG)
+        self.moves =    tk.Label(status, relief = tk.RIDGE, font = STATUS_FONT, 
+                                 bg = STATUS_BG, fg = 'Black', bd = 2)
+        self.moves.pack(expand=tk.NO, fill = tk.NONE, side = tk.RIGHT)
+        status.pack(expand=tk.NO, fill = tk.X, side=tk.BOTTOM)
         canvas = self.canvas = tk.Canvas(root, bg=BACKGROUND, 
                                          cursor=DEFAULT_CURSOR, **kwargs)
-        canvas.pack()
+        canvas.pack()        
+        
         self.loadImages()
         self.createCards()      
         self.pileCoords = []
@@ -158,6 +166,7 @@ class View:
             y += CARDHEIGHT+2*HALO+MARGIN
             
     def showPiles(self):
+        #Also update status bar
         canvas = self.canvas
         model = self.model
         coords = self.pileCoords
@@ -176,7 +185,9 @@ class View:
         for idx in move3:
             canvas.itemconfigure('rect%d'%idx, fill=BACKGROUND, outline=MOVE1)
         for idx in move13:
-            canvas.itemconfigure('rect%d'%idx, fill=MOVE13)        
+            canvas.itemconfigure('rect%d'%idx, fill=MOVE13)
+        moves = len(move1) + len(move3) + 2*len(move13)
+        self.moves.configure(text = '%d moves'%moves)
                     
     def show(self):
         model = self.model
