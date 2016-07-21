@@ -5,9 +5,13 @@ The view knows about the model, but not vice versa
 The canvas widget is used for both view and controller.
 '''
 import sys, os, itertools
-import tkinter as tk
-import tkinter.messagebox as tkmb
 from model import SUITNAMES, RANKNAMES, ALLRANKS, Card
+if sys.version_info[0] == 3:
+    import tkinter as tk
+    import tkinter.messagebox as tkmb
+else:
+    import Tkinter as tk
+    import tkMessageBox as tkmb
 
 # Constants determining the size and layout of cards piles.
 # Adjacent cards are separated by MARGIN pixels

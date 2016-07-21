@@ -2,8 +2,11 @@
 
 from model import Model
 from view import View
-import tkinter as tk
 import os, sys
+if sys.version_info[0] == 3:
+    import tkinter as tk
+else:
+    import Tkinter as tk
 
 helpText = '''
 OBJECTIVE
